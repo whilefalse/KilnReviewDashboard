@@ -23,6 +23,7 @@
             <span class="reviewId"><a href="https://nonlinear.kilnhg.com/Review/${sReview}">${sReview}</a></span>
             <span class="reviewStatus">${sStatus}</span>
             <span class="reviewTitle">${sTitle}</span>
+            <span class="reviewAge">(${DaysOld} days old)</span>
         </li>
     </script>
 
