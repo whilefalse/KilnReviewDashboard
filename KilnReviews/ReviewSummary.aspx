@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReviewSummary.aspx.cs" Inherits="KilnReviews.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReviewSummary.aspx.cs" Inherits="KilnReviews.ReviewSummary" %>
 
 <!DOCTYPE html>
 
@@ -7,7 +7,7 @@
     <title></title>
 </head>
 <body>
-	<h2>Ian Reah's Code Reviews</h2>
+	<h2>Your Code Reviews</h2>
 	<h3>Reviews to do:</h3>
 	<ul id="reviewsTodo"></ul>
 	

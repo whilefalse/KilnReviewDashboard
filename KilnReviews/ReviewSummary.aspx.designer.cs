@@ -9,7 +9,7 @@
 
 namespace KilnReviews
 {
-    public partial class Default
+    public partial class ReviewSummary
 	{
 
     }
