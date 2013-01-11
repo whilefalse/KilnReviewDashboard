@@ -112,7 +112,6 @@
     <Compile Include="Reviewer.cs" />
     <Compile Include="Reviews.cs" />
     <Compile Include="ReviewsController.cs" />
-    <Compile Include="SessionFiddle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
