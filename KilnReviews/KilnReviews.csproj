@@ -71,6 +71,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Default.aspx" />
     <Content Include="ReviewSummary.aspx" />
     <Content Include="Global.asax" />
     <Content Include="main.js" />
@@ -89,6 +90,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ReviewSummary.aspx.cs">
       <DependentUpon>ReviewSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -104,6 +112,7 @@
     <Compile Include="Reviewer.cs" />
     <Compile Include="Reviews.cs" />
     <Compile Include="ReviewsController.cs" />
+    <Compile Include="SessionFiddle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
