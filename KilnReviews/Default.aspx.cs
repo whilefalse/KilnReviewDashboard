@@ -6,7 +6,6 @@ namespace KilnReviews
 {
 	public partial class Default : Page
 	{
-		// TODO: Find out how asp.net submits form data - is it secure enough for passing a password?
 		protected void submitButtonClick(object sender, EventArgs e)
 		{
 			using (var webClient = new WebClient())
