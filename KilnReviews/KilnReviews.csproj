@@ -114,8 +114,11 @@
     <Compile Include="Reviewer.cs" />
     <Compile Include="Reviews.cs" />
     <Compile Include="ReviewsController.cs" />
+<<<<<<< HEAD
     <Compile Include="ReviewWithChangesets.cs" />
     <Compile Include="SessionFiddle.cs" />
+=======
+>>>>>>> 1dd808ea8b0d5f03912e1b866eb228cca9b9f8ca
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

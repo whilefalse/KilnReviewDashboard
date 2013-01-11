@@ -11,18 +11,15 @@ namespace KilnReviews
 		{
 			RouteTable.Routes.MapHttpRoute(name: "Todos",
 										   routeTemplate: "api/Reviews/Todo",
-										   defaults: new { controller = "Reviews", action = "GetReviewsTodo" })
-										   .RouteHandler = new SessionStateControllerRouteHandler();
+										   defaults: new { controller = "Reviews", action = "GetReviewsTodo" });
 
 			RouteTable.Routes.MapHttpRoute(name: "Rejected",
 										   routeTemplate: "api/Reviews/Rejected",
-										   defaults: new { controller = "Reviews", action = "GetRejectedReviews" })
-										   .RouteHandler = new SessionStateControllerRouteHandler();
+										   defaults: new { controller = "Reviews", action = "GetRejectedReviews" });
 
 			RouteTable.Routes.MapHttpRoute(name: "Waiting",
 										   routeTemplate: "api/Reviews/Waiting",
-										   defaults: new { controller = "Reviews", action = "GetReviewsWaiting" })
-										   .RouteHandler = new SessionStateControllerRouteHandler();
+										   defaults: new { controller = "Reviews", action = "GetReviewsWaiting" });
 		}
 
 		protected void Application_BeginRequest(object sender, EventArgs e)
