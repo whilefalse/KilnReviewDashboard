@@ -24,5 +24,14 @@ namespace KilnReviews
 										   defaults: new { controller = "Reviews", action = "GetReviewsWaiting" })
 										   .RouteHandler = new SessionStateControllerRouteHandler();
 		}
+
+		protected void Application_BeginRequest(object sender, EventArgs e)
+		{
+			if (!Request.IsSecureConnection)
+			{
+				var url = Uri.UriSchemeHttps + Uri.SchemeDelimiter + Request.Url.Authority + Request.Url.PathAndQuery;
+				Response.Redirect(url);
+			}
+		}
 	}
 }
