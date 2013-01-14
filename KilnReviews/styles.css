@@ -1,4 +1,11 @@
-﻿.ancient {
+﻿body {
+	color: #373737;
+	background: #f2f2f2;
+	font-size: 16px;
+	font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+}
+
+.ancient {
 	color: red;
 	font-weight: bold;
 }
