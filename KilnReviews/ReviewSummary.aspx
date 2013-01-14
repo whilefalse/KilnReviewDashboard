@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
-	<h2>Your Code Reviews</h2>
+	<h2>Code Reviews for <%= UserName %></h2>
 	<h3>Reviews to do:</h3>
 	<ul id="reviewsTodo"></ul>
 	
