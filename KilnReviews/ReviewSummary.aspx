@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+	<link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
 	<h2>Your Code Reviews</h2>
@@ -23,7 +24,7 @@
             <span class="reviewId"><a href="https://nonlinear.kilnhg.com/Review/${sReview}">${sReview}</a></span>
             <span class="reviewStatus">${sStatus}</span>
             <span class="reviewTitle">${sTitle}</span>
-            <span class="reviewAge">(${DaysOld} days old)</span>
+            <span class="reviewAge{{if DaysOld > 14}} ancient{{/if}}">(${DaysOld} days old)</span>
         </li>
     </script>
 
