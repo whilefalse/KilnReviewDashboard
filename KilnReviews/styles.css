@@ -5,7 +5,10 @@
 	font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
 }
 
+.reviewAge {
+	font-weight: bold;
+}
+
 .ancient {
 	color: red;
-	font-weight: bold;
 }

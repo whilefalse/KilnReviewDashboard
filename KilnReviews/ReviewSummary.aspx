@@ -15,16 +15,13 @@
 	<h3>Rejected reviews to fix:</h3>
 	<ul id="reviewsRejected"></ul>
 	
-	<h3>Code being reviewed by others:</h3>
-	<p>(kick people if any stay here for too long)</p>
+	<h3>Your code being reviewed by others:</h3>
 	<ul id="reviewsWaiting"></ul>
 	
     <script type="text/x-jquery-tmpl" id="reviewTemplate">
         <li>
-            <span class="reviewId"><a href="https://nonlinear.kilnhg.com/Review/${sReview}">${sReview}</a></span>
-            <span class="reviewStatus">${sStatus}</span>
-            <span class="reviewTitle">${sTitle}</span>
-            <span class="reviewAge{{if DaysOld > 14}} ancient{{/if}}">(${DaysOld} days old)</span>
+            <span class="reviewTitle"><a href="https://nonlinear.kilnhg.com/Review/${sReview}">${sReview}: ${sTitle}</a></span>
+            <span class="reviewAge{{if DaysOld > 14}} ancient{{/if}}">[${DaysOld} days old]</span>
         </li>
     </script>
 
