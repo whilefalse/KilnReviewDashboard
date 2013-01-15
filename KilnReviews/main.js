@@ -38,16 +38,21 @@
 			});
 		},
 		
+		refreshList: function(element, title, items) {
+			element.html(this.template(title, items));
+			element.removeClass("fetching");
+		},
+		
 		addReviewsTodo: function () {
-			$(this.reviewsTodo).html(this.template("Reviews to do:", ReviewTodo.all()));
+			this.refreshList($(this.reviewsTodo), "Reviews to do:", ReviewTodo.all());
 		},
 
 		addReviewsRejected: function () {
-			$(this.reviewsRejected).html(this.template("Rejected reviews to fix:", ReviewRejected.all()));
+			this.refreshList($(this.reviewsRejected), "Rejected reviews to fix:", ReviewRejected.all());
 		},
 
 		addReviewsWaiting: function () {
-			$(this.reviewsWaiting).html(this.template("Your code under review:", ReviewWaiting.all()));
+			this.refreshList($(this.reviewsWaiting), "Your code under review:", ReviewWaiting.all());
 		}
 	});
 	

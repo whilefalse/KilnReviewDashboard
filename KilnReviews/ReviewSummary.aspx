@@ -9,9 +9,9 @@
 </head>
 <body>
 	<h2>Code Reviews for <%= UserName %></h2>
-	<div id="reviewsTodo"></div>
-	<div id="reviewsRejected"></div>
-	<div id="reviewsWaiting"></div>
+	<div id="reviewsTodo" class="fetching"></div>
+	<div id="reviewsRejected" class="fetching"></div>
+	<div id="reviewsWaiting" class="fetching"></div>
 	
     <script type="text/x-jquery-tmpl" id="reviewsTemplate">
 		<h3>${title}</h3>

@@ -12,3 +12,11 @@
 .ancient {
 	color: red;
 }
+
+.fetching {
+	opacity: 0;
+}
+
+#reviewsTodo, #reviewsRejected, #reviewsWaiting {
+	-webkit-transition: opacity 0.05s ease-in-out;
+}
