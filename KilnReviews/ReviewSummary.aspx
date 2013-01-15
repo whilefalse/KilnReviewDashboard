@@ -9,20 +9,24 @@
 </head>
 <body>
 	<h2>Code Reviews for <%= UserName %></h2>
-	<h3>Reviews to do:</h3>
-	<ul id="reviewsTodo"></ul>
+	<div id="reviewsTodo"></div>
+	<div id="reviewsRejected"></div>
+	<div id="reviewsWaiting"></div>
 	
-	<h3>Rejected reviews to fix:</h3>
-	<ul id="reviewsRejected"></ul>
-	
-	<h3>Your code being reviewed by others:</h3>
-	<ul id="reviewsWaiting"></ul>
-	
-    <script type="text/x-jquery-tmpl" id="reviewTemplate">
-        <li>
-            <span class="reviewTitle"><a href="https://nonlinear.kilnhg.com/Review/${sReview}">${sReview}: ${sTitle}</a></span>
-            <span class="reviewAge{{if DaysOld > 14}} ancient{{/if}}">[${DaysOld} days old]</span>
-        </li>
+    <script type="text/x-jquery-tmpl" id="reviewsTemplate">
+		<h3>${title}</h3>
+	    <ul>
+	    {{if reviews.length > 0}}
+			{{each reviews}}
+			<li>
+				<span class="reviewTitle"><a href="https://nonlinear.kilnhg.com/Review/${sReview}">${sReview}: ${sTitle}</a></span>
+				<span class="reviewAge{{if DaysOld > 14}} ancient{{/if}}">[${DaysOld} days old]</span>
+			</li>
+			{{/each}}
+		{{else}}
+			<li><span class="noReviews">None :-)</span></li>
+		{{/if}}
+		</ul>
     </script>
 
 	<script type="text/javascript" src="Scripts/jquery-1.8.3.min.js"></script>

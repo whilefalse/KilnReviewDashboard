@@ -14,12 +14,6 @@
 	ReviewWaiting.extend(Spine.Model.Ajax);
 	ReviewWaiting.extend({ url: "api/Reviews/Waiting" });
 
-	var ReviewController = Spine.Controller.sub({
-		init: function () {
-			this.replace($("#reviewTemplate").tmpl(this.review));
-		}
-	});
-
 	var ReviewsController = Spine.Controller.sub({
 		elements: {
 			"#reviewsTodo": "reviewsTodo",
@@ -37,25 +31,23 @@
 			ReviewWaiting.fetch();
 		},
 
-		addReviewsTodo: function () {
-			ReviewTodo.each(function(review) {
-				var controller = new ReviewController({ review: review });
-				$(this.reviewsTodo).append(controller.el);
+		template: function (title, items) {
+			return $('#reviewsTemplate').tmpl({
+				title: title,
+				reviews: items,
 			});
+		},
+		
+		addReviewsTodo: function () {
+			$(this.reviewsTodo).html(this.template("Reviews to do:", ReviewTodo.all()));
 		},
 
 		addReviewsRejected: function () {
-			ReviewRejected.each(function (review) {
-				var controller = new ReviewController({ review: review });
-				$(this.reviewsRejected).append(controller.el);
-			});
+			$(this.reviewsRejected).html(this.template("Rejected reviews to fix:", ReviewRejected.all()));
 		},
 
 		addReviewsWaiting: function () {
-			ReviewWaiting.each(function (review) {
-				var controller = new ReviewController({ review: review });
-				$(this.reviewsWaiting).append(controller.el);
-			});
+			$(this.reviewsWaiting).html(this.template("Your code under review:", ReviewWaiting.all()));
 		}
 	});
 	
