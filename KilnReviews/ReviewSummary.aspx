@@ -19,7 +19,7 @@
 	    {{if reviews.length > 0}}
 			{{each reviews}}
 			<li>
-				<span class="reviewTitle"><a href="https://nonlinear.kilnhg.com/Review/${sReview}">${sReview}: ${sTitle}</a></span>
+				<span class="reviewTitle"><a href="<%= ConfigurationManager.AppSettings["kilnUrlBase"] %>Review/${sReview}">${sReview}: ${sTitle}</a></span>
 				<span class="reviewAge{{if DaysOld > 14}} ancient{{/if}}">[${DaysOld} days old]</span>
 			</li>
 			{{/each}}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Web;
 using System.Web.UI;
@@ -21,9 +22,9 @@ namespace KilnReviews
 		{
 			using (var webClient = new WebClient())
 			{
-				var downloadString = webClient.DownloadString(string.Format("https://nonlinear.kilnhg.com/Api/2.0/Auth/Login?sUser={0}&sPassword={1}", Uri.EscapeDataString(userName.Text), Uri.EscapeDataString(password.Text)));
+				var downloadString = webClient.DownloadString(string.Format("{0}Api/2.0/Auth/Login?sUser={1}&sPassword={2}", ConfigurationManager.AppSettings["kilnUrlBase"], Uri.EscapeDataString(userName.Text), Uri.EscapeDataString(password.Text)));
 
-				// TODO: Handle failure to get token
+				// TODO: Handle failure to get token &/or kilnUrlBase
 				
 
 				var kilnTokenCookie = new HttpCookie("kilnToken")
