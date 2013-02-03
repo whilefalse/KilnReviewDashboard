@@ -7,8 +7,12 @@
     <title></title>
 </head>
 <body>
+    <p>Login to your Kiln account at <%=KilnUrlBase %></p>
+
     <form id="loginForm" runat="server">
+        <label>Username</label>
 		<asp:TextBox ID="userName" runat="server"></asp:TextBox>
+        <label>Password</label>
 		<asp:TextBox ID="password" runat="server" TextMode="Password"></asp:TextBox>
 		<asp:Button ID="submitButton" runat="server" Text="Log in" OnClick="submitButtonClick" />
     </form>
