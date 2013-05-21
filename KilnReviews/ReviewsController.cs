@@ -17,7 +17,7 @@ namespace KilnReviews
 			var response = GetReviews();
 			var reviews = JsonConvert.DeserializeObject<Reviews>(response);
 
-			var reviewsToRetrun = reviews.reviewsAwaitingReview;
+			var reviewsToRetrun = reviews.reviewsAwaitingReview.Where(r => r.sStatus != "needswork").ToArray();
 			AddDatesForReviews(reviewsToRetrun);
 			return reviewsToRetrun;
 		}
@@ -28,7 +28,7 @@ namespace KilnReviews
 			var response = GetReviews();
 			var reviews = JsonConvert.DeserializeObject<Reviews>(response);
 
-			var reviewsToRetrun = reviews.reviewsAuthor.Where(r => r.sStatus != "approved" && r.sStatus != "active").ToArray();
+			var reviewsToRetrun = reviews.reviewsAuthor.Where(r => r.sStatus == "rejected" || r.sStatus == "needswork").ToArray();
 
 			AddDatesForReviews(reviewsToRetrun);
 
