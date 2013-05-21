@@ -18,11 +18,17 @@ namespace KilnReviews
 			}
 		}
 
+		public string KilnUrlBase
+		{
+			get { return ConfigurationManager.AppSettings["kilnUrlBase"]; }
+		}
+
+
 		protected void submitButtonClick(object sender, EventArgs e)
 		{
 			using (var webClient = new WebClient())
 			{
-				var downloadString = webClient.DownloadString(string.Format("{0}Api/2.0/Auth/Login?sUser={1}&sPassword={2}", ConfigurationManager.AppSettings["kilnUrlBase"], Uri.EscapeDataString(userName.Text), Uri.EscapeDataString(password.Text)));
+				var downloadString = webClient.DownloadString(string.Format("{0}Api/2.0/Auth/Login?sUser={1}&sPassword={2}", KilnUrlBase, Uri.EscapeDataString(userName.Text), Uri.EscapeDataString(password.Text)));
 
 				// TODO: Handle failure to get token &/or kilnUrlBase
 				
