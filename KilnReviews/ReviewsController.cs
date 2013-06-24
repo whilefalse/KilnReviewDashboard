@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Http;
 using Newtonsoft.Json;
@@ -86,8 +88,29 @@ namespace KilnReviews
 					var changesetAge = DateTime.Now - mostRecentChangeset;
 
 					review.DaysOld = (int)changesetAge.TotalDays;
+					review.People = review.reviewers.Select(x => GravitarUrl(x.sEmail)).ToArray();
 				}	
 			}
+		}
+
+		private static string GravitarUrl(string email)
+		{
+			var hash = CalculateMD5Hash(email);
+			return string.Format("https://secure.gravatar.com/avatar/{0}?s=32", hash);
+		}
+
+		private static string CalculateMD5Hash(string input)
+		{
+			var md5 = MD5.Create();
+			var inputBytes = Encoding.ASCII.GetBytes(input);
+			var hash = md5.ComputeHash(inputBytes);
+
+			var sb = new StringBuilder();
+			for (int i = 0; i < hash.Length; i++)
+			{
+				sb.Append(hash[i].ToString("X2"));
+			}
+			return sb.ToString().ToLower();
 		}
 	}
 }
