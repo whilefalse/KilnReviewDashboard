@@ -48,7 +48,7 @@
 		},
 
 		addReviewsRejected: function () {
-			this.refreshList($(this.reviewsRejected), "Rejected reviews to fix:", ReviewRejected.all());
+			this.refreshList($(this.reviewsRejected), "Reviews to fix:", ReviewRejected.all());
 		},
 
 		addReviewsWaiting: function () {

@@ -95,7 +95,7 @@ namespace KilnReviews
 
 		private static string GravitarUrl(string email)
 		{
-			var hash = CalculateMD5Hash(email);
+			var hash = CalculateMD5Hash(email.ToLowerInvariant());
 			return string.Format("https://secure.gravatar.com/avatar/{0}?s=32", hash);
 		}
 
