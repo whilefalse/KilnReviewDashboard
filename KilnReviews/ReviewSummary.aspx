@@ -35,9 +35,16 @@
                                     <td><span class="reviewTitle"><a href="<%= ConfigurationManager.AppSettings["kilnUrlBase"] %>Review/${sReview}">${sReview}: ${sTitle}</a></span></td>
                                     <td><span class="reviewAge{{if DaysOld > 14}} ancient{{/if}}">${DaysOld}</span></td>
                                     <td>
-                                        {{each People}} 
-                                            <img src="${$value}"/>
-                                        {{/each}}
+                                        {{if ($data.reviewing) }}
+                                            {{each Authors}} 
+                                                <img src="${$value}"/>
+                                            {{/each}}
+                                        {{else}}
+                                        {{each Reviewers}} 
+                                                <img src="${$value}"/>
+                                            {{/each}}
+                                            
+                                        {{/if}}
                                     </td>
                                 </tr>
 			                {{/each}}

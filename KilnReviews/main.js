@@ -31,28 +31,29 @@
 			ReviewWaiting.fetch();
 		},
 
-		template: function (title, items) {
+		template: function (title, items, reviewing) {
 			return $('#reviewsTemplate').tmpl({
 				title: title,
 				reviews: items,
+				reviewing: reviewing
 			});
 		},
 		
-		refreshList: function(element, title, items) {
-			element.html(this.template(title, items));
+		refreshList: function(element, title, items, reviewing) {
+		    element.html(this.template(title, items, reviewing));
 			element.removeClass("fetching");
 		},
 		
 		addReviewsTodo: function () {
-			this.refreshList($(this.reviewsTodo), "Reviews to do:", ReviewTodo.all());
+			this.refreshList($(this.reviewsTodo), "Reviews to do:", ReviewTodo.all(), true);
 		},
 
 		addReviewsRejected: function () {
-			this.refreshList($(this.reviewsRejected), "Reviews to fix:", ReviewRejected.all());
+			this.refreshList($(this.reviewsRejected), "Reviews to fix:", ReviewRejected.all(), false);
 		},
 
 		addReviewsWaiting: function () {
-			this.refreshList($(this.reviewsWaiting), "Your code under review:", ReviewWaiting.all());
+			this.refreshList($(this.reviewsWaiting), "Your code under review:", ReviewWaiting.all(), false);
 		}
 	});
 	

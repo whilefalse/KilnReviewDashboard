@@ -7,6 +7,7 @@ namespace KilnReviews
 	public class Changeset 
 	{
 		public string dt { get; set; }
+		public string sAuthor { get; set; }
 
 		public DateTime DateTime
 		{

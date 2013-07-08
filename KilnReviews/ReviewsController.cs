@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 using Newtonsoft.Json;
@@ -88,8 +89,23 @@ namespace KilnReviews
 					var changesetAge = DateTime.Now - mostRecentChangeset;
 
 					review.DaysOld = (int)changesetAge.TotalDays;
-					review.People = review.reviewers.Select(x => GravitarUrl(x.sEmail)).ToArray();
+					review.Reviewers = review.reviewers.Select(x => GravitarUrl(x.sEmail)).ToArray();
+					review.Authors = reviewWithChangesets.changesets.Select(x => GravitarUrl(GetEmail(x.sAuthor))).Distinct().ToArray();
 				}	
+			}
+		}
+
+		private string GetEmail(string sAuthor)
+		{
+			var r = new Regex("<([^>]*)>");
+
+			if (r.IsMatch(sAuthor))
+			{
+				return r.Match(sAuthor).Groups[1].Value;
+			}
+			else
+			{
+				return "unknown";
 			}
 		}
 
