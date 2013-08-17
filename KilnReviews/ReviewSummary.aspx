@@ -9,8 +9,9 @@
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
+
     <div class="container">
-	<h2>Code Reviews for <%= UserName %></h2>
+	<h3>Code Reviews for <%= UserName %></h3>
 	<div id="reviewsTodo" class="fetching"></div>
 	<div id="reviewsRejected" class="fetching"></div>
 	<div id="reviewsWaiting" class="fetching"></div>
