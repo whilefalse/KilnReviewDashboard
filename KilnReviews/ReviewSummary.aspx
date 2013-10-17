@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Open Code Reviews</title>
 	<link rel="stylesheet" type="text/css" href="styles.css"/>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
 </head>
