@@ -14,16 +14,23 @@ namespace KilnReviews
 {
 	public class ReviewsController : ApiController
 	{
+	    private static readonly int ageOfReviewInDeletedRepo = TimeSpan.MaxValue.Days;
+	    private static bool NotInDeletedRepo(Review review)
+	    {
+	        return review.DaysOld != ageOfReviewInDeletedRepo;
+	    }
+
 		// GET api/Reviews/Todo
 		public Review[] GetReviewsTodo()
 		{
 			var response = GetReviews();
 			var reviews = JsonConvert.DeserializeObject<Reviews>(response);
 
-			var reviewsToRetrun = reviews.reviewsAwaitingReview.Where(r => r.sStatus != "needswork").ToArray();
-			AddDatesForReviews(reviewsToRetrun);
-			return reviewsToRetrun;
-		}
+			var reviewsToReturn = reviews.reviewsAwaitingReview.Where(r => r.sStatus != "needswork").ToArray();
+			AddDatesForReviews(reviewsToReturn);
+
+            return reviewsToReturn.Where(NotInDeletedRepo).ToArray();
+        }
 
 		// GET api/Reviews/Rejected
 		public Review[] GetRejectedReviews()
@@ -31,12 +38,12 @@ namespace KilnReviews
 			var response = GetReviews();
 			var reviews = JsonConvert.DeserializeObject<Reviews>(response);
 
-			var reviewsToRetrun = reviews.reviewsAuthor.Where(r => r.sStatus == "rejected" || r.sStatus == "needswork").ToArray();
+			var reviewsToReturn = reviews.reviewsAuthor.Where(r => r.sStatus == "rejected" || r.sStatus == "needswork").ToArray();
 
-			AddDatesForReviews(reviewsToRetrun);
+			AddDatesForReviews(reviewsToReturn);
 
-			return reviewsToRetrun;
-		}
+            return reviewsToReturn.Where(NotInDeletedRepo).ToArray();
+        }
 
 		// GET api/Reviews/Waiting
 		public Review[] GetReviewsWaiting()
@@ -44,10 +51,11 @@ namespace KilnReviews
 			var response = GetReviews();
 			var reviews = JsonConvert.DeserializeObject<Reviews>(response);
 
-			var reviewsToRetrun = reviews.reviewsAuthor.Where(r => r.sStatus == "active").ToArray();
-			AddDatesForReviews(reviewsToRetrun);
-			return reviewsToRetrun;
-		}
+			var reviewsToReturn = reviews.reviewsAuthor.Where(r => r.sStatus == "active").ToArray();
+			AddDatesForReviews(reviewsToReturn);
+
+            return reviewsToReturn.Where(NotInDeletedRepo).ToArray();
+        }
 
 		// TODO: caching - http://www.strathweb.com/2012/05/output-caching-in-asp-net-web-api/
 		private static string GetReviews()
@@ -62,10 +70,8 @@ namespace KilnReviews
 				{
 					return string.Empty;
 				}
-				else
-				{
-					return webClient.DownloadString(string.Format("{0}Api/2.0/Reviews?token={1}", kilnUrlBase, token.Value));	
-				}
+
+			    return webClient.DownloadString(string.Format("{0}Api/2.0/Reviews?token={1}", kilnUrlBase, token.Value));
 			}
 		}
 
@@ -79,18 +85,26 @@ namespace KilnReviews
 				return;
 			}
 
-			foreach (var review in reviews)
+            foreach (var review in reviews)
 			{
 				using (var webClient = new WebClient())
 				{
 					var response = webClient.DownloadString(string.Format("{0}Api/2.0/Review/{1}?token={2}", kilnUrlBase, review.sReview, token.Value));
 					var reviewWithChangesets = JsonConvert.DeserializeObject<ReviewWithChangesets>(response);
-					var mostRecentChangeset = reviewWithChangesets.changesets.Max(c => c.DateTime);
-					var changesetAge = DateTime.Now - mostRecentChangeset;
 
-					review.DaysOld = (int)changesetAge.TotalDays;
-					review.Reviewers = review.reviewers.Select(x => GravitarUrl(x.sEmail)).ToArray();
-					review.Authors = reviewWithChangesets.changesets.Select(x => GravitarUrl(GetEmail(x.sAuthor))).Distinct().ToArray();
+                    if (reviewWithChangesets.changesets == null)    // indicative of a review of changesets from a repo that's since been deleted
+				    {
+                        review.DaysOld = ageOfReviewInDeletedRepo;
+				    }
+				    else
+				    {
+                        var changesetAge = DateTime.Now - reviewWithChangesets.changesets.Max(c => c.DateTime);
+                        review.DaysOld = (int)changesetAge.TotalDays;
+
+                        review.Reviewers = review.reviewers.Select(x => GravitarUrl(x.sEmail)).ToArray();
+
+                        review.Authors = reviewWithChangesets.changesets.Select(x => GravitarUrl(GetEmail(x.sAuthor))).Distinct().ToArray();
+                    }
 				}	
 			}
 		}
