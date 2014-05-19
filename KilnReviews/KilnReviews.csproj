@@ -108,6 +108,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ReviewsFetcher.cs" />
     <Compile Include="ReviewSummary.aspx.cs">
       <DependentUpon>ReviewSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
