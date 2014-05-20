@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Services.Protocols;
 using Newtonsoft.Json;
 
 namespace KilnReviews
@@ -37,7 +38,7 @@ namespace KilnReviews
 
             var reviewsToReturn = matchingReviews(reviews).Where(matchesCriteria).ToArray();
 
-            AddDatesForReviews(reviewsToReturn);
+            AddReviewDetails(reviewsToReturn);
 
             return reviewsToReturn.Where(NotInDeletedRepo).ToArray();
         }
@@ -60,7 +61,7 @@ namespace KilnReviews
             }
         }
 
-        private void AddDatesForReviews(IEnumerable<Review> reviews)
+        private static void AddReviewDetails(IEnumerable<Review> reviews)
         {
             var token = HttpContext.Current.Request.Cookies["kilnToken"];
             var kilnUrlBase = ConfigurationManager.AppSettings["kilnUrlBase"];
@@ -89,6 +90,12 @@ namespace KilnReviews
                         review.Reviewers = review.reviewers.Select<Reviewer, string>(x => GravitarUrl(x.sEmail)).ToArray();
 
                         review.Authors = reviewWithChangesets.changesets.Select<Changeset, string>(x => GravitarUrl(GetEmail(x.sAuthor))).Distinct().ToArray();
+
+                        foreach (var changeset in reviewWithChangesets.changesets)
+                        {
+                            changeset.FindXamlFiles(webClient, kilnUrlBase, token, review.ixRepos[0]);
+                        }
+                        review.ContainsXamlFiles = reviewWithChangesets.changesets.Any(c => c.ContainsXamlFiles);
                     }
                 }	
             }
