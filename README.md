@@ -11,7 +11,7 @@ Conveniently display all of your active [Kiln](https://www.fogcreek.com/kiln/) [
 
 To use it, set `kilnUrlBase` in the web.config to your kiln base url, e.g., https://example.kilnhg.com/, and log in with your FogBugz details.
 
-h3. FogBugz Integration
+### FogBugz Integration
 
 You can also integrate with FogBugz, which will add a section showing you:
 
