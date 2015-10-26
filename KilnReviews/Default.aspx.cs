@@ -32,10 +32,10 @@ namespace KilnReviews
 		{
 			using (var webClient = new WebClient())
 			{
-				var tokenEntered = Uri.EscapeDataString(token.Text);
+				var kilnToken = Uri.EscapeDataString(token.Text);
 
-				if (string.IsNullOrEmpty(tokenEntered)) {
-					tokenEntered = webClient
+				if (string.IsNullOrEmpty(kilnToken)) {
+					kilnToken = webClient
 						.DownloadString(string.Format("{0}Api/2.0/Auth/Login?sUser={1}&sPassword={2}", KilnUrlBase, Uri.EscapeDataString(Uri.EscapeDataString(userName.Text)), Uri.EscapeDataString(password.Text)))
 						.Replace("\"", string.Empty);
 				}
@@ -44,7 +44,7 @@ namespace KilnReviews
 
 				var kilnTokenCookie = new HttpCookie("kilnToken")
 				{
-					Value = tokenEntered,
+					Value = kilnToken,
 					Expires = DateTime.Today.AddMonths(1),
 					HttpOnly = true,
 					Secure = true
