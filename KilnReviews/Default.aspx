@@ -14,8 +14,15 @@
             <fieldset>
                 <label>Email</label>
 		        <asp:TextBox ID="userName" runat="server"></asp:TextBox>
-                <label>Password</label>
-		        <asp:TextBox ID="password" runat="server" TextMode="Password"></asp:TextBox>
+				<div style="clear:both"></div>
+				<div style="float: left">
+					<label>API Token (<a href="<%= FogBugzUrlBase %>f/userPrefs">Generate</a>)<br/>(for users with 2 factor auth)</label>
+					<asp:TextBox ID="token" runat="server" TextMode="Password"></asp:TextBox>
+				</div>
+				<div style="float: left; margin-left: 20px">
+					<label>Password<br />(for users without 2 factor auth)</label>
+					<asp:TextBox ID="password" runat="server" TextMode="Password"></asp:TextBox>
+				</div>
             </fieldset>
 		    <asp:Button ID="submitButton" runat="server" Text="Log in" OnClick="submitButtonClick" />
         </form>

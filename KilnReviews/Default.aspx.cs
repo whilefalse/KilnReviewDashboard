@@ -23,19 +23,28 @@ namespace KilnReviews
 			get { return ConfigurationManager.AppSettings["kilnUrlBase"]; }
 		}
 
+		public string FogBugzUrlBase
+		{
+			get { return ConfigurationManager.AppSettings["fogBugzUrlBase"]; }
+		}
 
 		protected void submitButtonClick(object sender, EventArgs e)
 		{
 			using (var webClient = new WebClient())
 			{
-				var downloadString = webClient.DownloadString(string.Format("{0}Api/2.0/Auth/Login?sUser={1}&sPassword={2}", KilnUrlBase, Uri.EscapeDataString(userName.Text), Uri.EscapeDataString(password.Text)));
+				var tokenEntered = Uri.EscapeDataString(token.Text);
+
+				if (string.IsNullOrEmpty(tokenEntered)) {
+					tokenEntered = webClient
+						.DownloadString(string.Format("{0}Api/2.0/Auth/Login?sUser={1}&sPassword={2}", KilnUrlBase, Uri.EscapeDataString(Uri.EscapeDataString(userName.Text)), Uri.EscapeDataString(password.Text)))
+						.Replace("\"", string.Empty);
+				}
 
 				// TODO: Handle failure to get token &/or kilnUrlBase
-				
 
 				var kilnTokenCookie = new HttpCookie("kilnToken")
 				{
-					Value = downloadString.Replace("\"", string.Empty),
+					Value = tokenEntered,
 					Expires = DateTime.Today.AddMonths(1),
 					HttpOnly = true,
 					Secure = true
